@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <v-main>
-            <!-- <v-container> -->
+            <v-container>
                 <!-- Sidebar -->
                 <!-- <side-bar></side-bar> -->
 
@@ -9,7 +9,7 @@
                 <slot>
                     <h1>Oops! No content found</h1>
                 </slot>
-            <!-- </v-container> -->
+            </v-container>
         </v-main>
     </v-app>
 </template>

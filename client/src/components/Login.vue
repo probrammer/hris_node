@@ -1,14 +1,16 @@
 <template>
-    <main>
-        <h1>Robin Regodon</h1>
+    <main-app>
+        <h2>HRIS v2</h2>
         <v-container>
             <v-row>
                 <v-col
                     md="4"
                     offset-md="4">
                     <v-text-field
-                        label="Placeholder"
-                        v-model="email">
+                        v-model="email"
+                        label="Email"
+                        clearable
+                        autocomplete="off">
                     </v-text-field>
                 </v-col>
             </v-row>
@@ -17,14 +19,10 @@
                     md="4"
                     offset-md="4">
                     <v-text-field
-                        :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
-                        :type="show3 ? 'text' : 'password'"
-                        name="input-10-2"
-                        label="Not visible"
-                        hint="At least 8 characters"
-                        class="input-group--focused"
-                        @click:append="show3 = !show3"
-                        v-model="password">
+                        v-model="password"
+                        label="Password"
+                        :type="'password'"
+                        clearable>
                     </v-text-field>
                 </v-col>
             </v-row>
@@ -39,34 +37,35 @@
                     </v-btn>
                 </v-col>
             </v-row>
+
             {{error}}
-            {{$store.state.email}}
         </v-container>
-    </main>
+    </main-app>
 </template>
 
 <script>
-import Main from './layouts/Main'
+import MainApp from './layouts/MainApp'
 import AuthenticationService from '@/services/AuthenticationService'
 
 export default {
     components: {
-        Main
+        MainApp
     },
     data () {
         return {
+            error: null,
+
             show1: false,
             show2: true,
             show3: false,
             show4: false,
-            password: 'Password',
             rules: {
                 required: value => !!value || 'Required.',
                 min: v => v.length >= 8 || 'Min 8 characters',
                 emailMatch: () => ('The email and password you entered don\'t match')
             },
-            email: '',
-            error: null
+            email: null,
+            password: null
         }
     },
     methods: {
@@ -76,9 +75,8 @@ export default {
                     email: this.email,
                     password: this.password
                 })
-
+                // setting state value test
                 this.$store.dispatch('setEmail', this.email)
-                // this.$router.push('/asd')
             } catch (err) {
                 this.error = err
             }
@@ -88,4 +86,20 @@ export default {
 </script>
 
 <style scoped>
+.v-text-field--outlined legend {
+    width: 0 !important;
+}
+
+.v-text-field--outlined .v-label {
+    margin: 0 -4px;
+    padding: 0 4px;
+}
+
+.v-text-field--outlined .theme--light.v-label {
+    background-color: #fff;
+}
+
+.v-text-field--outlined .theme--dark.v-label {
+    background-color: #424242;
+}
 </style>
