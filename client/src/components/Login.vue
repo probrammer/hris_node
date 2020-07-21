@@ -7,10 +7,10 @@
                     md="4"
                     offset-md="4">
                     <v-text-field
-                        v-model="email"
                         label="Email"
                         clearable
-                        autocomplete="off">
+                        autocomplete="off"
+                        v-model="email">
                     </v-text-field>
                 </v-col>
             </v-row>
@@ -19,7 +19,6 @@
                     md="4"
                     offset-md="4">
                     <v-text-field
-                        v-model="password"
                         label="Password"
                         :type="'password'"
                         clearable>
@@ -86,20 +85,4 @@ export default {
 </script>
 
 <style scoped>
-.v-text-field--outlined legend {
-    width: 0 !important;
-}
-
-.v-text-field--outlined .v-label {
-    margin: 0 -4px;
-    padding: 0 4px;
-}
-
-.v-text-field--outlined .theme--light.v-label {
-    background-color: #fff;
-}
-
-.v-text-field--outlined .theme--dark.v-label {
-    background-color: #424242;
-}
 </style>
