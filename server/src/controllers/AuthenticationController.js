@@ -16,7 +16,7 @@ module.exports = {
             }
             const token = jwt.sign(payload, privateKey, signOptions, (err, token) => {
                 res.send({
-                    message: process.env
+                    token
                 })
             })
         } catch (err) {
