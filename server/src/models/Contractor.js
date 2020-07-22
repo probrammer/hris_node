@@ -1,10 +1,10 @@
 
 module.exports = (sequelize, DataTypes) => {
     const Contractor = sequelize.define('contractors', {
-        firstname: DataTypes.STRING,
-        middlename: DataTypes.STRING,
-        lastname: DataTypes.STRING,
-        viemail: {
+        firstName: DataTypes.STRING,
+        middleName: DataTypes.STRING,
+        lastName: DataTypes.STRING,
+        viEmail: {
             type: DataTypes.STRING,
             unique: true
         },
