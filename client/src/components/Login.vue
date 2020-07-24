@@ -21,7 +21,8 @@
                     <v-text-field
                         label="Password"
                         :type="'password'"
-                        clearable>
+                        clearable
+                        v-model="password">
                     </v-text-field>
                 </v-col>
             </v-row>
