@@ -60,16 +60,13 @@ module.exports = {
 
             const contractorJSON = contractor.toJSON()
             const token = jwtSignContractor(contractorJSON)
-            res
-                .status(200)
-                .set('Authorization', `Bearer ${token}`)
-                .send({
-                    token
-                    // verified: jwtVerifyToken(token)
+            res.status(200).send({
+                message: 'Logged in succesfully!',
+                token
             })
         } catch (err) {
             res.status(500).send({
-                message: err + ''
+                message: err
             })
         }
     }

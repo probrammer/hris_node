@@ -1,4 +1,5 @@
 const AuthenticationController = require('./controllers/AuthenticationController')
+const DashboardController = require('./controllers/DashboardController')
 
 // middleware
 // function logger (req, res, next) {
@@ -8,6 +9,9 @@ const AuthenticationController = require('./controllers/AuthenticationController
 
 module.exports = (app) => {
     // app.use(logger)
-    app.post('/login',
-        AuthenticationController.login)
+    app.post('/',
+        AuthenticationController.login),
+
+    app.get('/dashboard', 
+        DashboardController.helloWorld)
 }

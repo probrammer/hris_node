@@ -1,21 +1,27 @@
 <template>
     <v-app>
         <v-main>
-            <v-container>
+            <v-container fluid>
                 <!-- Sidebar -->
-                <!-- <side-bar></side-bar> -->
+                <sidebar></sidebar>
 
                 <!-- Content goes here -->
-                <slot>
-                    <h1>Oops! No content found</h1>
-                </slot>
+                <div class="pl-14"> <!-- added 56px padding left (sidebar min-width: 56px) -->
+                    <slot>
+                        <h1 style="border: 1px solid red">Oops! No content found</h1>
+                    </slot>
+                </div>
             </v-container>
         </v-main>
     </v-app>
 </template>
 
 <script>
+import Sidebar from './Sidebar'
 export default {
+    components: {
+        Sidebar
+    }
 }
 </script>
 

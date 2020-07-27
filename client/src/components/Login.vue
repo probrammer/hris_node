@@ -1,46 +1,48 @@
 <template>
-    <main-app>
-        <h2>HRIS v2</h2>
-        <v-container>
-            <v-row>
-                <v-col
-                    md="4"
-                    offset-md="4">
-                    <v-text-field
-                        label="Email"
-                        clearable
-                        autocomplete="off"
-                        v-model="email">
-                    </v-text-field>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col
-                    md="4"
-                    offset-md="4">
-                    <v-text-field
-                        label="Password"
-                        :type="'password'"
-                        clearable
-                        v-model="password">
-                    </v-text-field>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col
-                    md="4"
-                    offset-md="4">
-                    <v-btn 
-                        small
-                        @click="login()">
-                        Login
-                    </v-btn>
-                </v-col>
-            </v-row>
+    <v-app>
+        <v-main>
+            <h2>HRIS v2</h2>
+            <v-container>
+                <v-row>
+                    <v-col
+                        md="4"
+                        offset-md="4">
+                        <v-text-field
+                            label="Email"
+                            clearable
+                            autocomplete="off"
+                            v-model="email">
+                        </v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col
+                        md="4"
+                        offset-md="4">
+                        <v-text-field
+                            label="Password"
+                            :type="'password'"
+                            clearable
+                            v-model="password">
+                        </v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col
+                        md="4"
+                        offset-md="4">
+                        <v-btn 
+                            small
+                            @click="login()">
+                            Login
+                        </v-btn>
+                    </v-col>
+                </v-row>
 
-            {{error}}
-        </v-container>
-    </main-app>
+                {{error}}
+            </v-container>
+        </v-main>
+    </v-app>
 </template>
 
 <script>
@@ -77,6 +79,7 @@ export default {
                 })
                 // setting state value test
                 this.$store.dispatch('setEmail', this.email)
+                // this.$router.push('/helloworld')
             } catch (err) {
                 this.error = err
             }
