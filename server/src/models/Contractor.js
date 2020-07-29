@@ -14,14 +14,69 @@ function hashPassword (contractor) {
 
 module.exports = (sequelize, DataTypes) => {
     const Contractor = sequelize.define('contractors', {
-        firstName: DataTypes.STRING,
-        middleName: DataTypes.STRING,
-        lastName: DataTypes.STRING,
+        // personal info
+        firstName: {
+            type: DataTypes.STRING(30),
+            allowNull: false
+        },
+        lastName: {
+            type: DataTypes.STRING(30),
+            allowNull: false
+        },
+        middleName: DataTypes.STRING(30),
+        nickname: DataTypes.STRING(30),
+        nationality: DataTypes.STRING(30),
+        gender: DataTypes.STRING(10),
+        dateOfBirth: DataTypes.DATE,
+        maritalStatus: DataTypes.STRING(30),
+        degree: DataTypes.STRING(30),
+        program: DataTypes.STRING(60),
+        sss: DataTypes.STRING,
+        pagibig: DataTypes.STRING,
+        philhealth: DataTypes.STRING,
+
+        // work info
+        dateStarted: DataTypes.DATE,
+        dateRegularized: DataTypes.DATE,
+        employmentStatus: DataTypes.STRING(10),
+        batchNumber: DataTypes.STRING(30),
+        
+        // contact info
         viEmail: {
             type: DataTypes.STRING,
             unique: true
         },
-        password: DataTypes.STRING
+        personalEmail: {
+            type: DataTypes.STRING,
+            unique: true
+        },
+        landlineNumber: DataTypes.STRING(30),
+        emergencyContactPerson: DataTypes.STRING(60),
+        emergencyContactNumber: DataTypes.STRING(30),
+        skype: DataTypes.STRING,
+        facebook: DataTypes.STRING,
+
+        // payroll info
+        payoneerId: DataTypes.STRING(60),
+        bankAccount: DataTypes.STRING(60),
+        paygrade: DataTypes.STRING(10),
+        paygradeEffectivityDate: DataTypes.DATE,
+        paymentTerm: DataTypes.STRING(10),
+        rate: DataTypes.FLOAT,
+
+        // system info
+        mainIsp: DataTypes.STRING(60),
+        backupIsp: DataTypes.STRING(60),
+        noiseCancellingHeadset: DataTypes.BOOLEAN,
+        osProcessor: DataTypes.STRING(60),
+        ram: DataTypes.STRING(30),
+
+        // other info
+        password: DataTypes.STRING(30),
+        raw_password: DataTypes.STRING(30),
+        isManager: DataTypes.BOOLEAN,
+        isActive: DataTypes.BOOLEAN,
+        dateOfSeparation: DataTypes.DATE,
     }, 
     {
         hooks: {

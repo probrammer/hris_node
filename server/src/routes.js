@@ -13,5 +13,5 @@ module.exports = (app) => {
         AuthenticationController.login),
 
     app.get('/dashboard', 
-        DashboardController.helloWorld)
+        DashboardController.index)
 }

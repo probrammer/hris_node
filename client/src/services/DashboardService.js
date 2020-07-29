@@ -1,7 +1,7 @@
 import Api from '@/services/Api'
 
 export default {
-    helloWorld (search) {
+    index (search) {
         return Api().get('/dashboard', {
             params: {
                 search: search
