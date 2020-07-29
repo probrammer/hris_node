@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-main>
+        <v-main class="main-body">
             <v-container fluid>
                 <!-- Sidebar -->
                 <sidebar></sidebar>
@@ -26,4 +26,7 @@ export default {
 </script>
 
 <style scoped>
+.main-body{
+    background-color: #f6f6f6
+}
 </style>

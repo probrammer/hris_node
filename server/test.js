@@ -8,6 +8,7 @@ function createActive () {
         Contractor.create({
             firstName: firstNames[Math.floor(Math.random() * 11)],
             lastName: lastNames[Math.floor(Math.random() * 11)],
+            dateStarted: new Date(Math.floor(Math.random() * (2014 - 2010)) + 2010, Math.floor(Math.random() * 13), Math.floor(Math.random() * 30)),
         })
         .then(console.log('active done'))
     }
@@ -18,7 +19,8 @@ function createInactive () {
         Contractor.create({
             firstName: firstNames[Math.floor(Math.random() * 11)],
             lastName: lastNames[Math.floor(Math.random() * 11)],
-            dateOfSeparation: new Date(2019, 08, 28)
+            dateOfSeparation: new Date(Math.floor(Math.random() * (2021 - 2015)) + 2015, Math.floor(Math.random() * 13), Math.floor(Math.random() * 30)),
+            dateStarted: new Date(Math.floor(Math.random() * (2015 - 2010)) + 2010, Math.floor(Math.random() * 13), Math.floor(Math.random() * 30)),
         })
         .then(console.log('inactive done'))
     }
