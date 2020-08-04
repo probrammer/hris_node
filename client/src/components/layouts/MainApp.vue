@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <v-main class="main-body">
-            <v-container fluid>
+            <v-container fluid class="py-0">
                 <!-- Sidebar -->
                 <sidebar></sidebar>
 

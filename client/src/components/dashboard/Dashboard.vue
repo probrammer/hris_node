@@ -2,29 +2,16 @@
     <main-app>
         <slot>
             <v-container fluid>
-                <v-row 
-                    class="mb-2">
-                    <v-col
-                        md="3"
-                        v-for="(card, index) in cards"
-                        :key="index">
-                        <v-card
-                            class="pa-2"
-                            tile>
-                            <v-list-item two-line>
-                                <v-list-item-content>
-                                    <v-list-item-subtitle class="mb-1 text-left" @click="helloWorld()">{{card.title}}</v-list-item-subtitle>
-                                    <span class="text-md-h5 text-left">{{card.subtitle}}</span>
-                                </v-list-item-content>
+                <!-- cards -->
+                <dashboard-cards></dashboard-cards>
 
-                                <v-list-item-icon>
-                                    <v-icon :color="card.iconColor">{{card.icon}}</v-icon>
-                                </v-list-item-icon>
-                            </v-list-item>
-                        </v-card>
-                    </v-col>
-                </v-row>
+                <!-- filter -->
+                <dashboard-filter 
+                    @set-year="filter.year = $event" 
+                    @set-month="filter.month = $event">
+                </dashboard-filter>
 
+                <!-- charts -->
                 <v-row>
                     <!-- headcount chart -->
                     <v-col md="6">
@@ -50,42 +37,21 @@
 </template>
 
 <script>
+// comps
 import MainApp from '../layouts/MainApp'
-import DashboardService from '@/services/DashboardService'
 import LineChart from './LineChart'
+import DashboardCards from './DashboardCards'
+import DashboardFilter from './DashboardFilter'
+
+// services
+import DashboardService from '@/services/DashboardService'
 
 export default {
     components: {
-        MainApp, LineChart
+        MainApp, LineChart, DashboardCards, DashboardFilter
     },
     data () {
         return {
-            cards: [
-                {
-                    title: 'Contractors Added',
-                    subtitle: '10',
-                    icon: 'mdi-account-plus',
-                    iconColor: 'teal darken-1'
-                },
-                {
-                    title: 'Contractors Removed',
-                    subtitle: '37',
-                    icon: 'mdi-account-remove',
-                    iconColor: 'red darken-1'
-                },
-                {
-                    title: 'Total Headcount',
-                    subtitle: '175',
-                    icon: 'mdi-account-group',
-                    iconColor: 'orange darken-1'
-                },
-                {
-                    title: 'Attrition Rate',
-                    subtitle: '3.15',
-                    icon: 'mdi-percent',
-                    iconColor: 'deep-purple darken-1'
-                }
-            ],
             attritionData: new AttritionData ([10, 20, 30, 25, 15]),
             headCountData: new HeadcountData (
                 [100,240,320,221,114],
@@ -93,16 +59,18 @@ export default {
                 [200,300,250,200,150],
                 [210,310,420,310,210]
             ),
-            dateStarted: [new Date('2012-01-01'), new Date('2021-01-01')],
-            dateOfSeparation: null,
+            filter: {
+                year: new Date().getFullYear(),
+                month: null
+            }
         }
     },
     methods: {
         async helloWorld () {
             const filter = {
-                    dateStarted: this.dateStarted,
-                    dateOfSeparation: this.dateOfSeparation
-                }   
+                year: this.filter.year,
+                month: this.filter.month 
+            }
 
             // change route to '/current_route/?filter...
             const route = {
@@ -126,15 +94,20 @@ export default {
             } catch (err) {
                 console.log(err)
             }   
-        }
+        },
     },
     watch: {
-        picker: {
-            handler (val) {
-                console.log(val)
+        filter: {
+            deep: true, // watch changes on object properties
+            immediate: true,
+            async handler (value) {
+                const test = await DashboardService.index(value)
             }
         }
     },
+    created () {
+        
+    }
 }
 
 // custom functions
@@ -144,8 +117,8 @@ function AttritionData (data) {
         {
             label: 'Attrition Rate (%)',
             fill: false,
-            borderColor: '#f06232',
-            pointBackgroundColor: '#f06232',
+            borderColor: '#0D47A1',
+            pointBackgroundColor: '#0D47A1',
             pointRadius: 4,
             data: data,
             spanGaps: true,
@@ -159,16 +132,16 @@ function HeadcountData (addedData, removedData, openingData, closingData) {
         {
             label: 'Added',
             fill: false,
-            borderColor: '#a0bbe8',
-            pointBackgroundColor: '#a0bbe8',
+            borderColor: '#00BFA5',
+            pointBackgroundColor: '#00BFA5',
             pointRadius: 4,
             data: addedData
         },
         {
             label: 'Removed',
             fill: false,
-            borderColor: '#f06232',
-            pointBackgroundColor: '#f06232',
+            borderColor: '#C62828',
+            pointBackgroundColor: '#C62828',
             pointRadius: 4,
             data: removedData,
             spanGaps: true,
@@ -176,16 +149,16 @@ function HeadcountData (addedData, removedData, openingData, closingData) {
         {
             label: 'Opening',
             fill: false,
-            borderColor: '#a0bbe8',
-            pointBackgroundColor: '#a0bbe8',
+            borderColor: '#0D47A1',
+            pointBackgroundColor: '#0D47A1',
             pointRadius: 4,
             data: openingData
         },
         {
             label: 'Closing',
             fill: false,
-            borderColor: '#f06232',
-            pointBackgroundColor: '#f06232',
+            borderColor: '#F9A825',
+            pointBackgroundColor: '#F9A825',
             pointRadius: 4,
             data: closingData,
             spanGaps: true,

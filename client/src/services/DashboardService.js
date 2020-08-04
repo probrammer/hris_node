@@ -1,10 +1,10 @@
 import Api from '@/services/Api'
 
 export default {
-    index (search) {
+    index (filter) {
         return Api().get('/dashboard', {
             params: {
-                search: search
+                filter: filter
             }
         })
     }
