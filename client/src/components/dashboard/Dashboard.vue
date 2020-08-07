@@ -3,7 +3,7 @@
         <slot>
             <v-container fluid>
                 <!-- cards -->
-                <dashboard-cards></dashboard-cards>
+                <dashboard-cards :cardData="cardData"></dashboard-cards>
 
                 <!-- filter -->
                 <dashboard-filter 
@@ -52,67 +52,38 @@ export default {
     },
     data () {
         return {
-            attritionData: new AttritionData ([10, 20, 30, 25, 15]),
-            headCountData: new HeadcountData (
-                [100,240,320,221,114],
-                [210,158,208,185,160],
-                [200,300,250,200,150],
-                [210,310,420,310,210]
-            ),
             filter: {
                 year: new Date().getFullYear(),
-                month: null
-            }
+                month: null,
+            },
+            attritionData: {},
+            headCountData: {},
+            cardData: {}
         }
-    },
-    methods: {
-        async helloWorld () {
-            const filter = {
-                year: this.filter.year,
-                month: this.filter.month 
-            }
-
-            // change route to '/current_route/?filter...
-            const route = {
-                name: 'dashboard',
-                query: filter
-            }
-            
-            this.$router.push(route)
-
-            try {
-                console.time('fetch')
-                const test = await DashboardService.index(filter)
-                this.attritionData = new AttritionData ([200, 300, 400, 500, 600])
-                this.headCountData = new HeadcountData (
-                    [120,220,300,241,124],
-                    [290,198,288,145,170],
-                    [250,320,210,230,180],
-                    [280,390,440,350,220]
-                )
-                console.timeEnd('fetch')
-            } catch (err) {
-                console.log(err)
-            }   
-        },
     },
     watch: {
         filter: {
             deep: true, // watch changes on object properties
             immediate: true,
             async handler (value) {
-                const test = await DashboardService.index(value)
+                const reportData = (await DashboardService.index(value)).data
+                this.attritionData = new AttritionData(reportData.chartData.attritionRate, reportData.chartData.labels)
+                this.headCountData = new HeadcountData(
+                    reportData.chartData.contractorsAdded, 
+                    reportData.chartData.contractorsRemoved, 
+                    reportData.chartData.openingBalance, 
+                    reportData.chartData.closingBalance,
+                    reportData.chartData.labels
+                )
+                this.cardData = reportData.cardData
             }
         }
-    },
-    created () {
-        
     }
 }
 
 // custom functions
-function AttritionData (data) {
-    this.labels = ['Robin', 'Mark', 'Josh', 'Lili', 'Ino']
+function AttritionData (data, labels) {
+    this.labels = labels
     this.datasets = [
         {
             label: 'Attrition Rate (%)',
@@ -126,8 +97,8 @@ function AttritionData (data) {
     ]
 }
 
-function HeadcountData (addedData, removedData, openingData, closingData) {
-    this.labels = ['Blue', 'Red', 'Green', 'Yellow', 'Cyan'],
+function HeadcountData (addedData, removedData, openingData, closingData, labels) {
+    this.labels = labels
     this.datasets = [
         {
             label: 'Added',

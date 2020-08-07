@@ -6,6 +6,7 @@ const morgan = require('morgan')
 const dotenv = require('dotenv')
 const config = require('./config/config')
 const { sequelize } = require('./models')
+const fileExport = require('./traits/ExportXLSX')
 
 // middlewares
 dotenv.config()
@@ -22,4 +23,5 @@ sequelize.sync({force: false})
     .then(() => {
         app.listen(config.port)
         console.log(`Server started on port ${config.port}`)
+        console.log(fileExport.exportXLSX('Data 123'))
     })

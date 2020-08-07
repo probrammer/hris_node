@@ -1,6 +1,8 @@
 <template>
-    <v-row>
-        <v-col md="2">
+    <v-row 
+        align="center">
+        <v-col 
+            md="2">
             <v-select 
                 class="filter-option"
                 dense
@@ -11,27 +13,39 @@
                 @change="$emit('set-year', year)">
             </v-select>
         </v-col>
-        <v-col md="2">
+        <v-col 
+            md="2">
             <v-select 
                 class="filter-option"
+                color="red darken-1"
+                label="No month selected"
                 dense
                 solo
-                color="red darken-1"
                 :items="options.months"
-                label="No month selected"
                 v-model="month"
                 @change="$emit('set-month', month)">
             </v-select>
         </v-col>
-        <v-col class="text-right" md="2">
-            <v-btn text color="red darken-2" height="40px">
-                Clear Filter
-            </v-btn>
-        </v-col>
-        <v-col class="text-right" md="3" offset-md="3">
-            <v-btn dark color="blue darken-4">
-                Export
-            </v-btn>
+        <v-col 
+            class="text-right"
+            md="3"
+            offset-md="5">
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                        color="blue darken-4"
+                        fab
+                        dark
+                        v-bind="attrs"
+                        v-on="on"
+                        @click="exportStuff()">
+                        <v-icon>
+                            mdi-file-export
+                        </v-icon>
+                    </v-btn>
+                </template>
+                <span>Export</span>
+            </v-tooltip>
         </v-col>
     </v-row>
 </template>
@@ -49,8 +63,9 @@ export default {
         }
     },
     methods: {
-        sendFilter () {
-            this.$emit('send-filter', this.year)
+        exportStuff () {
+            // add export function here
+            console.log('hello')
         }
     },
     created () {
