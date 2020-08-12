@@ -73,9 +73,12 @@ module.exports = (sequelize, DataTypes) => {
 
         // other info
         password: DataTypes.STRING(30),
-        raw_password: DataTypes.STRING(30),
+        rawPassword: DataTypes.STRING(30),
         isManager: DataTypes.BOOLEAN,
-        isActive: DataTypes.BOOLEAN,
+        isActive: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: true
+        },
         dateOfSeparation: DataTypes.DATE,
     }, 
     {

@@ -1,6 +1,9 @@
 const { Contractor, Sequelize, sequelize } = require('../models')
 const Op = Sequelize.Op
 
+const path = require('path')
+const Excel = require('../traits/ExportXLSX')
+
 function getMonthValue (month) {
     return new Date(Date.parse(`2000-${month}-01`)).getMonth() + 1
 }
@@ -25,7 +28,6 @@ function renameKey (arr) { // alternative for GROUP BY alias
 function limitDecimalPlace (num) {
     return num.toFixed(2)
 }
-
 
 module.exports = {
     async index (req, res) {
@@ -155,5 +157,11 @@ module.exports = {
             cardData: await dashboard.cardData()
         }
         res.status(200).send(data)
+    },
+    async exportXLSX (req, res) {
+        // res.send({
+        //     filter: JSON.parse(req.query.filter),
+        //     options: JSON.parse(req.query.options)
+        // })
     }
 }

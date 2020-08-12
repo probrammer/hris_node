@@ -38,7 +38,7 @@
                         dark
                         v-bind="attrs"
                         v-on="on"
-                        @click="exportStuff()">
+                        @click="$emit('export-report')">
                         <v-icon>
                             mdi-file-export
                         </v-icon>
@@ -60,12 +60,6 @@ export default {
             },
             year: new Date().getFullYear(),
             month: null
-        }
-    },
-    methods: {
-        exportStuff () {
-            // add export function here
-            console.log('hello')
         }
     },
     created () {

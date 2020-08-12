@@ -8,7 +8,8 @@
                 <!-- filter -->
                 <dashboard-filter 
                     @set-year="filter.year = $event" 
-                    @set-month="filter.month = $event">
+                    @set-month="filter.month = $event"
+                    @export-report="exportReport()">
                 </dashboard-filter>
 
                 <!-- charts -->
@@ -56,9 +57,17 @@ export default {
                 year: new Date().getFullYear(),
                 month: null,
             },
+            options: {
+                fileName: 'Reports 2020'
+            },
             attritionData: {},
             headCountData: {},
             cardData: {}
+        }
+    },
+    methods: {
+        async exportReport () {
+            // add export function here
         }
     },
     watch: {
@@ -66,6 +75,15 @@ export default {
             deep: true, // watch changes on object properties
             immediate: true,
             async handler (value) {
+                // add filter param to route (think of optimized way)
+                // const route = {
+                //     name: 'dashboard',
+                //     query: {
+                //         year: value.year,
+                //         month: value.month
+                //     }
+                // }
+                // this.$router.push(route)
                 const reportData = (await DashboardService.index(value)).data
                 this.attritionData = new AttritionData(reportData.chartData.attritionRate, reportData.chartData.labels)
                 this.headCountData = new HeadcountData(

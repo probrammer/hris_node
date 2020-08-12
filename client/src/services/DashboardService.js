@@ -7,5 +7,13 @@ export default {
                 filter: filter
             }
         })
+    },
+    exportXLSX (filter, options) {
+        return Api().get('/dashboard'), {
+            params: {
+                filter: filter,
+                options: options
+            }
+        }
     }
 }
