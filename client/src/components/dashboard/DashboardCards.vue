@@ -13,7 +13,7 @@
                 </v-list-item-content>
 
                 <v-list-item-icon>
-                    <v-icon color="teal accent-4">mdi-account-plus</v-icon>
+                    <v-icon color="teal lighten-1">mdi-account-plus</v-icon>
                 </v-list-item-icon>
             </v-list-item>
         </v-card>
@@ -30,7 +30,7 @@
                 </v-list-item-content>
 
                 <v-list-item-icon>
-                    <v-icon color="red darken-3">mdi-account-remove</v-icon>
+                    <v-icon color="red lighten-1">mdi-account-remove</v-icon>
                 </v-list-item-icon>
             </v-list-item>
         </v-card>
@@ -64,7 +64,7 @@
                 </v-list-item-content>
 
                 <v-list-item-icon>
-                    <v-icon color="blue darken-4">mdi-percent</v-icon>
+                    <v-icon color="blue darken-3">mdi-percent</v-icon>
                 </v-list-item-icon>
             </v-list-item>
         </v-card>

@@ -106,8 +106,8 @@ function AttritionData (data, labels) {
         {
             label: 'Attrition Rate (%)',
             fill: false,
-            borderColor: '#0D47A1',
-            pointBackgroundColor: '#0D47A1',
+            borderColor: '#1565C0',
+            pointBackgroundColor: '#1565C0',
             pointRadius: 4,
             data: data,
             spanGaps: true,
@@ -121,16 +121,16 @@ function HeadcountData (addedData, removedData, openingData, closingData, labels
         {
             label: 'Added',
             fill: false,
-            borderColor: '#00BFA5',
-            pointBackgroundColor: '#00BFA5',
+            borderColor: '#26A69A',
+            pointBackgroundColor: '#26A69A',
             pointRadius: 4,
             data: addedData
         },
         {
             label: 'Removed',
             fill: false,
-            borderColor: '#C62828',
-            pointBackgroundColor: '#C62828',
+            borderColor: '#EF5350',
+            pointBackgroundColor: '#EF5350',
             pointRadius: 4,
             data: removedData,
             spanGaps: true,
@@ -138,8 +138,8 @@ function HeadcountData (addedData, removedData, openingData, closingData, labels
         {
             label: 'Opening',
             fill: false,
-            borderColor: '#0D47A1',
-            pointBackgroundColor: '#0D47A1',
+            borderColor: '#1565C0',
+            pointBackgroundColor: '#1565C0',
             pointRadius: 4,
             data: openingData
         },

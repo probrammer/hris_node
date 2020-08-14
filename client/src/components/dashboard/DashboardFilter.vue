@@ -33,7 +33,7 @@
             <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn
-                        color="blue darken-4"
+                        color="blue darken-3"
                         fab
                         dark
                         v-bind="attrs"

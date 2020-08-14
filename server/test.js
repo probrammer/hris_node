@@ -21,6 +21,7 @@ function createInactive () {
             lastName: lastNames[Math.floor(Math.random() * 11)],
             dateOfSeparation: new Date(Math.floor(Math.random() * (2021 - 2015)) + 2015, Math.floor(Math.random() * 13), Math.floor(Math.random() * 30)),
             dateStarted: new Date(Math.floor(Math.random() * (2015 - 2010)) + 2010, Math.floor(Math.random() * 13), Math.floor(Math.random() * 30)),
+            isActive: false
         })
         .then(console.log('inactive done'))
     }
