@@ -23,7 +23,7 @@
             <v-list
                 nav
                 dense>
-                <v-list-item link :to="'/next/api'"> <!-- :to = redirect -->
+                <v-list-item link :to="'/dashboard'"> <!-- :to = redirect -->
                     <v-list-item-icon>
                         <v-icon>
                             mdi-chart-bar
@@ -31,7 +31,7 @@
                     </v-list-item-icon>
                     <v-list-item-title>Dashboard</v-list-item-title>
                 </v-list-item>
-                <v-list-item link>
+                <v-list-item link :to="'/contractors'">
                     <v-list-item-icon>
                         <v-icon>
                             mdi-account-group

@@ -1,28 +1,12 @@
 <template>
     <main-app>
-        <v-row>
-            <v-col
-                md="12">  
-                <v-card>
-                    <v-card-title>List of Contractors</v-card-title>
-                    <v-row
-                        class="px-3">
-                        <v-col 
-                            md="3">
-                            sad
-                        </v-col>
-                    </v-row>
-                    <v-row>
-                        <v-col
-                            md="12">
-                            <contractors-table 
-                                :contractors="contractors">
-                            </contractors-table>
-                        </v-col>
-                    </v-row>
-                </v-card>
-            </v-col>
-        </v-row>
+        <slot>
+            <v-container fluid>
+                <contractors-table
+                    :contractors="contractors">
+                </contractors-table>
+            </v-container>
+        </slot>
     </main-app>
 </template>
 

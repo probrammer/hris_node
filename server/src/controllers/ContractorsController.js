@@ -4,9 +4,9 @@ const axios = require('axios')
 module.exports = {
     async index(req, res) {
         const contractors = await Contractor.findAll({
-            // attributes: [
-            //     'firstName', 'middleName', 'lastName'
-            // ]
+            order: [
+                ['dateStarted', 'ASC']
+            ]
         })
         res.status(200).send(contractors)
     },

@@ -14,6 +14,8 @@ function hashPassword (contractor) {
 
 module.exports = (sequelize, DataTypes) => {
     const Contractor = sequelize.define('contractors', {
+        // other
+        profilePicture: DataTypes.STRING(60),
         // personal info
         firstName: {
             type: DataTypes.STRING(30),
@@ -29,8 +31,8 @@ module.exports = (sequelize, DataTypes) => {
         gender: DataTypes.STRING(10),
         dateOfBirth: DataTypes.DATE,
         maritalStatus: DataTypes.STRING(30),
-        degree: DataTypes.STRING(30),
-        program: DataTypes.STRING(60),
+        degree: DataTypes.STRING(60),
+        program: DataTypes.STRING(255),
         sss: DataTypes.STRING,
         pagibig: DataTypes.STRING,
         philhealth: DataTypes.STRING,
@@ -38,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
         // work info
         dateStarted: DataTypes.DATE,
         dateRegularized: DataTypes.DATE,
-        employmentStatus: DataTypes.STRING(10),
+        employmentStatus: DataTypes.STRING(30),
         batchNumber: DataTypes.STRING(30),
         
         // contact info
@@ -70,9 +72,10 @@ module.exports = (sequelize, DataTypes) => {
         noiseCancellingHeadset: DataTypes.BOOLEAN,
         osProcessor: DataTypes.STRING(60),
         ram: DataTypes.STRING(30),
+        internetSpeed: DataTypes.STRING(30),
 
         // other info
-        password: DataTypes.STRING(30),
+        password: DataTypes.STRING(255),
         rawPassword: DataTypes.STRING(30),
         isManager: DataTypes.BOOLEAN,
         isActive: {

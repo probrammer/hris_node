@@ -30,22 +30,15 @@
             class="text-right"
             md="3"
             offset-md="5">
-            <v-tooltip bottom>
-                <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                        color="blue darken-3"
-                        fab
-                        dark
-                        v-bind="attrs"
-                        v-on="on"
-                        @click="$emit('export-report')">
-                        <v-icon>
-                            mdi-file-export
-                        </v-icon>
-                    </v-btn>
-                </template>
-                <span>Export</span>
-            </v-tooltip>
+            <v-btn
+                color="blue darken-3"
+                fab
+                dark
+                @click="$emit('export-report')">
+                <v-icon>
+                    mdi-file-export
+                </v-icon>
+            </v-btn>
         </v-col>
     </v-row>
 </template>
