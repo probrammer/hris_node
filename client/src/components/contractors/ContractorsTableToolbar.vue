@@ -8,7 +8,8 @@
                 label="Search user"
                 prepend-inner-icon="mdi-magnify"
                 class="textfield-solo"
-                v-model="table.search">
+                v-model="table.search"
+                @keyup="$emit('search', table.search)">
             </v-text-field>
         </v-col>
         <v-col
@@ -49,7 +50,7 @@
             <v-dialog  
                 persistent
                 scrollable
-                max-width="600px"
+                max-width="800px"
                 v-model="form.dialog">
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn
@@ -62,7 +63,7 @@
                 </template>
                 <v-card>
                     <v-card-title>
-                        <span class="headline">User Profile</span>
+                        <span class="headline">Add a new contractor</span>
                     </v-card-title>
                     <v-card-text>
                         <store-update-form

@@ -42,7 +42,7 @@
             tile>
             <v-list-item two-line>
                 <v-list-item-content>
-                    <v-list-item-subtitle class="mb-1 text-left">Total Headcount</v-list-item-subtitle>
+                    <v-list-item-subtitle class="mb-1 text-left">Total Contractors (Active)</v-list-item-subtitle>
                     <span class="text-md-h5 text-left">{{cardData.totalContractors}}</span>
                 </v-list-item-content>
 

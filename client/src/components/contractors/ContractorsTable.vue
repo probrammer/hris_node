@@ -5,13 +5,19 @@
             md="12"
             class="pb-0">
             <v-data-table
+                :search="search"
                 :headers="table.headers"
                 :items="data"
                 :loading="isLoading"
                 loading-text="Loading... Please wait"
-                :items-per-page="10"
+                :items-per-page="25"
                 :footer-props="table.footerProps"
                 class="elevation-1">
+                <template v-slot:item.isActive="{ item }">
+                    <v-chip x-small dark :color="item.isActive ? 'green lighten-1' : 'red lighten-1'">
+                        {{ item.isActive ? 'Active' : 'Inactive'}}
+                    </v-chip>
+                </template>
                 <template v-slot:item.dateOfBirth="{ item }">
                     {{ formatDate(item.dateOfBirth) }}
                 </template>
@@ -21,6 +27,9 @@
                 <template v-slot:item.dateRegularized="{ item }">
                     {{ formatDate(item.dateRegularized) }}
                 </template>
+                <template v-slot:item.dateOfSeparation="{ item }">
+                    {{ formatDate(item.dateOfSeparation) }}
+                </template>
                 <template v-slot:item.paygradeEffectivityDate="{ item }">
                     {{ formatDate(item.paygradeEffectivityDate) }}
                 </template>
@@ -29,11 +38,10 @@
                         small
                         class="mr-2"
                         @click="editItem(item)">
-                        mdi-pencil
+                        mdi-lead-pencil
                     </v-icon>
                     <v-icon
                         small
-                        color="red lighten-1"
                         @click="deleteItem(item)">
                         mdi-delete
                     </v-icon>
@@ -47,6 +55,7 @@
 export default {
     props: {
         data: null,
+        search: null,
         detailsIndex: null,
         isLoading: false
     },
@@ -55,12 +64,13 @@ export default {
             table: {
                 headers: [],
                 defaultHeaders: [
+                    { text: 'Status', value: 'isActive'},
                     { text: 'Last Name', value: 'lastName'},
                     { text: 'First Name', value: 'firstName'},
                     { text: 'Middle Name', value: 'middleName'},
                 ],
                 footerProps: {
-                    itemsPerPageOptions: [10, 50, 100, -1],
+                    itemsPerPageOptions: [25, 50, 100, -1],
                     showFirstLastPage: true,
                     firstIcon: 'mdi-page-first',
                     lastIcon: 'mdi-page-last',
@@ -84,8 +94,9 @@ export default {
                     // work info
                     { text: 'Date Started', value: 'dateStarted'},
                     { text: 'Date Regularized', value: 'dateRegularized'},
-                    { text: 'Status', value: 'employmentStatus'},
+                    { text: 'Employment Status', value: 'employmentStatus'},
                     { text: 'Batch Number', value: 'batchNumber'},
+                    { text: 'Date of Separation', value: 'dateOfSeparation'},
                     { text: 'Actions', value: 'actions', sortable: false}
                 ],
                 [

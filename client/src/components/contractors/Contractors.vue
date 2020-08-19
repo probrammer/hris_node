@@ -3,14 +3,20 @@
         <slot>
             <v-container fluid>
                 <contractors-table-toolbar
+                    @search="table.search = $event"
                     @details-selected="table.detailsIndex = $event"
                     @store-contractor="storeContractor($event)">
                 </contractors-table-toolbar>
                 <v-card>
-                    <v-card-title>List of Contractors</v-card-title>
+                    <v-card-title>
+                        List of Contractors
+                        <!-- <v-chip small dark color="green lighten-1" class="mx-1">{{active}}</v-chip>
+                        <v-chip small dark color="red lighten-1">{{inactive}}</v-chip> -->
+                    </v-card-title>
                     <contractors-table
-                        :isLoading="table.isLoading"
                         :data="table.data"
+                        :search="table.search"
+                        :isLoading="table.isLoading"
                         :detailsIndex="table.detailsIndex">
                     </contractors-table>
                 </v-card>
@@ -35,12 +41,16 @@ export default {
             table: {
                 data: [],
                 detailsIndex: 0,
-                isLoading: false
-            }
+                isLoading: false,
+                search: ''
+            },
+            // active: 0,
+            // inactive: 0
         }
     },
     async created () {
         const contractors = (await ContractorsService.index()).data
+        // contractors.map((v) => v.isActive ? this.active++ : this.inactive++)
         this.table.data = contractors
     },
     methods: {

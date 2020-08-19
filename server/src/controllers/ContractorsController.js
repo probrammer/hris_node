@@ -5,7 +5,7 @@ module.exports = {
     async index(req, res) {
         const contractors = await Contractor.findAll({
             order: [
-                ['dateStarted', 'ASC']
+                ['dateStarted', 'ASC'],
             ]
         })
         res.status(200).send(contractors)
