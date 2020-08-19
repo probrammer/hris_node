@@ -3,14 +3,17 @@
         <slot>
             <v-container fluid>
                 <contractors-table-toolbar
-                    @details-selected="detailsIndex = $event"
+                    @details-selected="table.detailsIndex = $event"
                     @store-contractor="storeContractor($event)">
                 </contractors-table-toolbar>
-                <contractors-table
-                    :isLoading="isLoading"
-                    :contractors="contractors"
-                    :detailsIndex="detailsIndex">
-                </contractors-table>
+                <v-card>
+                    <v-card-title>List of Contractors</v-card-title>
+                    <contractors-table
+                        :isLoading="table.isLoading"
+                        :data="table.data"
+                        :detailsIndex="table.detailsIndex">
+                    </contractors-table>
+                </v-card>
             </v-container>
         </slot>
     </main-app>
@@ -28,21 +31,23 @@ export default {
     },
     data () {
         return {
-            // for contractors-table
-            contractors: [],
-            detailsIndex: 0,
-            isLoading: false,
+            // contractors-table
+            table: {
+                data: [],
+                detailsIndex: 0,
+                isLoading: false
+            }
         }
     },
     async created () {
-        const meme = (await ContractorsService.index()).data
-        this.contractors = meme
+        const contractors = (await ContractorsService.index()).data
+        this.table.data = contractors
     },
     methods: {
         async storeContractor (data) {
-            this.isLoading = true
+            this.table.isLoading = true
             const contractor = await ContractorsService.store(data)
-            this.isLoading = false
+            this.table.isLoading = false
         }
     }
     // WorkSnaps integration test

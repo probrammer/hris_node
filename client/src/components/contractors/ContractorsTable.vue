@@ -1,15 +1,17 @@
 <template>
     <v-row>
         <v-col
+            cols="12"
             md="12"
             class="pb-0">
             <v-data-table
-                :headers="headers"
-                :items="contractors"
+                :headers="table.headers"
+                :items="data"
                 :loading="isLoading"
                 loading-text="Loading... Please wait"
                 :items-per-page="10"
-                class="elevation-1 pa-2">
+                :footer-props="table.footerProps"
+                class="elevation-1">
                 <template v-slot:item.dateOfBirth="{ item }">
                     {{ formatDate(item.dateOfBirth) }}
                 </template>
@@ -44,18 +46,28 @@
 <script>
 export default {
     props: {
-        contractors: null,
+        data: null,
         detailsIndex: null,
         isLoading: false
     },
     data () {
         return {
-            headers: [],
-            defaultHeaders: [
-                { text: 'Last Name', value: 'lastName'},
-                { text: 'First Name', value: 'firstName'},
-                { text: 'Middle Name', value: 'middleName'},
-            ],
+            table: {
+                headers: [],
+                defaultHeaders: [
+                    { text: 'Last Name', value: 'lastName'},
+                    { text: 'First Name', value: 'firstName'},
+                    { text: 'Middle Name', value: 'middleName'},
+                ],
+                footerProps: {
+                    itemsPerPageOptions: [10, 50, 100, -1],
+                    showFirstLastPage: true,
+                    firstIcon: 'mdi-page-first',
+                    lastIcon: 'mdi-page-last',
+                    prevIcon: 'mdi-chevron-left',
+                    nextIcon: 'mdi-chevron-right'
+                }
+            },
             details: [
                 [
                     // personal info
@@ -114,7 +126,8 @@ export default {
                     { text: 'PhilHealth', value: 'philhealth'},
                     { text: 'Actions', value: 'actions', sortable: false}
                 ]
-            ]
+            ],
+            
         }
     },
     methods: {
@@ -137,7 +150,7 @@ export default {
         detailsIndex: {
             immediate: true,
             handler (val) {
-                this.headers = this.defaultHeaders.concat(this.details[val])
+                this.table.headers = this.table.defaultHeaders.concat(this.details[val])
             }
         }
     }
