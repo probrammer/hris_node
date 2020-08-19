@@ -18,6 +18,8 @@ module.exports = (app) => {
 
     app.get('/contractors',
         ContractorsController.index)
+    app.post('/contractors/store',
+        ContractorsController.store)
     app.get('/contractors/wsTest',
         ContractorsController.wsTest)
 }

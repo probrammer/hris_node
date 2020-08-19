@@ -2,8 +2,14 @@
     <main-app>
         <slot>
             <v-container fluid>
+                <contractors-table-toolbar
+                    @details-selected="detailsIndex = $event"
+                    @store-contractor="storeContractor($event)">
+                </contractors-table-toolbar>
                 <contractors-table
-                    :contractors="contractors">
+                    :isLoading="isLoading"
+                    :contractors="contractors"
+                    :detailsIndex="detailsIndex">
                 </contractors-table>
             </v-container>
         </slot>
@@ -13,21 +19,32 @@
 <script>
 import MainApp from '../layouts/MainApp'
 import ContractorsTable from './ContractorsTable'
+import ContractorsTableToolbar from './ContractorsTableToolbar'
 import ContractorsService from '@/services/ContractorsService'
 
 export default {
     components: {
-        MainApp, ContractorsTable
+        MainApp, ContractorsTable, ContractorsTableToolbar
     },
     data () {
         return {
-            contractors: []
+            // for contractors-table
+            contractors: [],
+            detailsIndex: 0,
+            isLoading: false,
         }
     },
     async created () {
         const meme = (await ContractorsService.index()).data
         this.contractors = meme
     },
+    methods: {
+        async storeContractor (data) {
+            this.isLoading = true
+            const contractor = await ContractorsService.store(data)
+            this.isLoading = false
+        }
+    }
     // WorkSnaps integration test
     // async mounted () {
     //     const wsTest = (await ContractorsService.wsTest()).data

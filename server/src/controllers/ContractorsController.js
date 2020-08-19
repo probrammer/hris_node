@@ -10,6 +10,10 @@ module.exports = {
         })
         res.status(200).send(contractors)
     },
+    async store (req, res) {
+        console.log(req.body)
+        res.status(200).send({hello: 'world'})
+    },
     async wsTest(req, res) {
         try {
             const apiToken = 'jwSXHi4x4yZ2PkLuSfhbhgWIhyV5W7h5nZUTlqZz' // unique token from WS
