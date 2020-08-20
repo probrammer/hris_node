@@ -15,7 +15,10 @@ function hashPassword (contractor) {
 module.exports = (sequelize, DataTypes) => {
     const Contractor = sequelize.define('contractors', {
         // other
-        profilePicture: DataTypes.STRING(60),
+        profilePicture: {
+            type: DataTypes.STRING(60),
+            defaultValue: 'default.jpg'
+        },
         // personal info
         firstName: {
             type: DataTypes.STRING(30),
@@ -44,14 +47,6 @@ module.exports = (sequelize, DataTypes) => {
         batchNumber: DataTypes.STRING(30),
         
         // contact info
-        viEmail: {
-            type: DataTypes.STRING,
-            unique: true
-        },
-        personalEmail: {
-            type: DataTypes.STRING,
-            unique: true
-        },
         landlineNumber: DataTypes.STRING(30),
         emergencyContactPerson: DataTypes.STRING(60),
         emergencyContactNumber: DataTypes.STRING(30),

@@ -1,0 +1,10 @@
+// WorkSnaps integration test
+    // async mounted () {
+    //     const wsTest = (await ContractorsService.wsTest()).data
+    //     const parser = new DOMParser() // xml parser
+    //     const parsedDoc = parser.parseFromString(wsTest.data, 'text/xml') // parsing xml to html doc
+
+    //     // this.wsData = parsedDoc.getElementsByTagName('login')[0].childNodes[0].nodeValue // get data based on HTML tags
+
+    //     console.log(parsedDoc)
+    // }

@@ -28,9 +28,17 @@ export default {
                 { icon: 'mdi-cellphone' },
                 { icon: 'mdi-cash' },
                 { icon: 'mdi-desktop-tower-monitor' },
-                { icon: 'mdi-card-account-details' },
+                { icon: 'mdi-account-heart'},
             ],
             currentStep: 0
+        }
+    },
+    watch: {
+        currentStep: {
+            immediate: true,
+            handler (val) {
+                this.$emit('change-step', val)
+            }
         }
     }
 }

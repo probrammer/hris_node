@@ -29,7 +29,7 @@
 import MainApp from '../layouts/MainApp'
 import ContractorsTable from './ContractorsTable'
 import ContractorsTableToolbar from './ContractorsTableToolbar'
-import ContractorsService from '@/services/ContractorsService'
+import ContractorService from '@/services/ContractorService'
 
 export default {
     components: {
@@ -37,39 +37,24 @@ export default {
     },
     data () {
         return {
-            // contractors-table
             table: {
                 data: [],
                 detailsIndex: 0,
                 isLoading: false,
                 search: ''
             },
-            // active: 0,
-            // inactive: 0
         }
     },
     async created () {
-        const contractors = (await ContractorsService.index()).data
-        // contractors.map((v) => v.isActive ? this.active++ : this.inactive++)
-        this.table.data = contractors
+        this.table.data = (await ContractorService.index()).data
     },
     methods: {
         async storeContractor (data) {
             this.table.isLoading = true
-            const contractor = await ContractorsService.store(data)
-            this.table.isLoading = false
+            const contractor = await ContractorService.store(data).then(() => this.table.isLoading = false)
         }
     }
-    // WorkSnaps integration test
-    // async mounted () {
-    //     const wsTest = (await ContractorsService.wsTest()).data
-    //     const parser = new DOMParser() // xml parser
-    //     const parsedDoc = parser.parseFromString(wsTest.data, 'text/xml') // parsing xml to html doc
-
-    //     // this.wsData = parsedDoc.getElementsByTagName('login')[0].childNodes[0].nodeValue // get data based on HTML tags
-
-    //     console.log(parsedDoc)
-    // }
+    
 }
 </script>
 

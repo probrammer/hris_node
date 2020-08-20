@@ -18,6 +18,9 @@
                         {{ item.isActive ? 'Active' : 'Inactive'}}
                     </v-chip>
                 </template>
+                <template v-slot:item.noiseCancellingHeadset="{ item }">
+                    {{ item.noiseCancellingHeadset ? 'Yes' : 'No' }}
+                </template>
                 <template v-slot:item.dateOfBirth="{ item }">
                     {{ formatDate(item.dateOfBirth) }}
                 </template>
@@ -124,7 +127,7 @@ export default {
                     // system info
                     { text: 'Main ISP', value: 'mainIsp'},
                     { text: 'Backup ISP', value: 'backupIsp'},
-                    { text: 'Noise Cancelling Headset', value: 'noiseCancellingHeadset'},
+                    { text: 'Noise Cancelling Headset?', value: 'noiseCancellingHeadset'},
                     { text: 'OS and Processor', value: 'osProcessor'},
                     { text: 'RAM', value: 'ram'},
                     { text: 'Internet Speed', value: 'internetSpeed'},

@@ -22,7 +22,8 @@
 
             <v-list
                 nav
-                dense>
+                dense
+                class="text-left">
                 <v-list-item link :to="'/dashboard'"> <!-- :to = redirect -->
                     <v-list-item-icon>
                         <v-icon>
@@ -31,7 +32,7 @@
                     </v-list-item-icon>
                     <v-list-item-title>Dashboard</v-list-item-title>
                 </v-list-item>
-                <v-list-item link :to="'/contractors'">
+                <v-list-item link :to="'/contractors'"> <!-- :to = redirect -->
                     <v-list-item-icon>
                         <v-icon>
                             mdi-account-group
@@ -47,6 +48,19 @@
                     </v-list-item-icon>
                     <v-list-item-title>Leaves</v-list-item-title>
                 </v-list-item>
+                <v-list-group
+                    prepend-icon="mdi-cog">
+                    <template v-slot:activator>
+                        <v-list-item-title>Manage</v-list-item-title>
+                    </template>
+
+                    <v-list-item v-for="(child, index) in manage.children" :key="index"
+                        link :to="child.link"
+                        class="text-center">
+                        <v-list-item-title>{{ child.title }}</v-list-item-title>
+                        <v-icon>{{ child.icon }}</v-icon>
+                    </v-list-item>
+                </v-list-group>
             </v-list>
         </v-navigation-drawer>
   </div>
@@ -54,6 +68,18 @@
 
 <script>
 export default {
+    data () {
+        return {
+            manage: {
+                children: [
+                    {title: 'Departments', icon: 'mdi-graph-outline', link: '/manage/departments'},
+                    {title: 'Job Titles', icon: 'mdi-clipboard-account-outline', link: '/manage/job-titles'},
+                    {title: 'Perks', icon:'mdi-account-heart-outline', link: '/manage/perks'},
+                    {title: 'Roles', icon: 'mdi-card-account-details-outline', link: '/manage/roles'},
+                ]
+            }
+        }
+    }
 }
 </script>
 
