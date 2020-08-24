@@ -1,5 +1,31 @@
-const { Contractor,  ContractorMobileNumber, ContractorAddress, ContractorJobtitle, ContractorRole, ContractorViEmail, ContractorPersonalEmail, ContractorPerk } = require('../models')
+const { Contractor,  ContractorMobileNumber, ContractorAddress, ContractorJobTitle, ContractorRole, ContractorViEmail, ContractorPersonalEmail, ContractorPerk } = require('../models')
 const axios = require('axios')
+
+async function hasManyDestroyStore (model, newValColumn, newValues, id) {
+    const destroy = await model.findAll({where: {contractorId: id}})
+    const notNull = newValues.filter((v) => {return v != null})
+    notNull.map(async (v) => {
+        await model.create({
+            [newValColumn]: v,
+            contractorId: id
+        })
+    })
+}
+
+async function storeArrayValues (model, array, column, contractorId) {
+    array.map(async (v) => {
+        if (v != null) {
+            try {
+                await model.create({
+                    [column]: v,
+                    contractorId: contractorId
+                })
+            } catch (err) {
+                return err
+            }
+        }
+    })
+}
 
 module.exports = {
     async index(req, res) {
@@ -7,7 +33,8 @@ module.exports = {
             const contractors = await Contractor.findAll({
                 order: [
                     ['dateStarted', 'ASC'],
-                ]
+                ],
+                include: ContractorMobileNumber
             })
             
             res.status(200).send(contractors)
@@ -18,7 +45,7 @@ module.exports = {
     async store (req, res) {
         try {
             const data = req.body
-            const contractorAdded = await Contractor.create({
+            const storedContractor = await Contractor.create({
                 firstName: data.firstName,
                 middleName: data.middleName,
                 lastName: data.lastName,
@@ -60,16 +87,14 @@ module.exports = {
                 pagibig: data.pagibig,
                 philhealth: data.philhealth  
             })
-            // data.mobileNumber.map((v) => {
-            //     if (v != null) {
-            //         await ContractorMobileNumber.findAll({
-            //             where: {
-            //                 id: contractorAdded.id
-            //             }
-            //         }).then()
-            //     }
-            // })
-            res.status(200).send(contractorAdded)
+            const storeContractorMobileNumbers = storeArrayValues(ContractorMobileNumber, data.mobileNumber, 'mobileNumber', storedContractor.id)
+            const storeContractorViEmails = storeArrayValues(ContractorViEmail, data.viEmail, 'viEmail', storedContractor.id)
+            const storeContractorPersonalEmails = storeArrayValues(ContractorPersonalEmail, data.personalEmail, 'personalEmail', storedContractor.id)
+            const storeContractorPerks = storeArrayValues(ContractorPerk, data.perks, 'perkId', storedContractor.id)
+            const storeContractorRoles = storeArrayValues(ContractorRole, data.roles, 'roleId', storedContractor.id)
+            const storeContractorJobTitles = storeArrayValues(ContractorJobTitle, data.jobTitles, 'jobTitleId', storedContractor.id)
+
+            res.status(200).send(storedContractor)
         } catch (err) {
             console.log(err)
         }

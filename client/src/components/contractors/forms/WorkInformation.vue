@@ -48,7 +48,7 @@
             <v-select
                 required
                 label="Direct Manager*"
-                :items="['Robin Regodon', 'Mae Fong', 'Dame Dolla', 'Steph Curry', 'LeBron James']"
+                :items="[1, 2, 3, 4, 5]"
                 v-model="data.directManagerId">
             </v-select>
         </v-col>
@@ -68,7 +68,7 @@
                 required
                 multiple
                 label="Role*"
-                :items="['Administrator', 'HR Manager', 'Operations Manager','Payroll', 'Guest']"
+                :items="[1,2,3,4,5]"
                 v-model="data.roles">
             </v-select>
         </v-col>
@@ -97,9 +97,10 @@ export default {
                 dateStarted: null,
                 dateRegularized: null,
                 departmentId: null,
+                isManager: false,
                 directManagerId: null,
-                jobTitles: null,
-                roles: null
+                jobTitles: [],
+                roles: []
             }
         }
     },

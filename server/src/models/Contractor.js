@@ -36,9 +36,9 @@ module.exports = (sequelize, DataTypes) => {
         maritalStatus: DataTypes.STRING(30),
         degree: DataTypes.STRING(60),
         program: DataTypes.STRING(255),
-        sss: DataTypes.STRING,
-        pagibig: DataTypes.STRING,
-        philhealth: DataTypes.STRING,
+        sss: DataTypes.STRING(60),
+        pagibig: DataTypes.STRING(60),
+        philhealth: DataTypes.STRING(60),
 
         // work info
         dateStarted: DataTypes.DATE,
@@ -50,13 +50,13 @@ module.exports = (sequelize, DataTypes) => {
         landlineNumber: DataTypes.STRING(30),
         emergencyContactPerson: DataTypes.STRING(60),
         emergencyContactNumber: DataTypes.STRING(30),
-        skype: DataTypes.STRING,
-        facebook: DataTypes.STRING,
+        skype: DataTypes.STRING(300),
+        facebook: DataTypes.STRING(300),
 
         // payroll info
         payoneerId: DataTypes.STRING(60),
         bankAccount: DataTypes.STRING(60),
-        paygrade: DataTypes.STRING(10),
+        paygrade: DataTypes.DECIMAL,
         paygradeEffectivityDate: DataTypes.DATE,
         paymentTerm: DataTypes.STRING(10),
         rate: DataTypes.FLOAT,
@@ -64,7 +64,10 @@ module.exports = (sequelize, DataTypes) => {
         // system info
         mainIsp: DataTypes.STRING(60),
         backupIsp: DataTypes.STRING(60),
-        noiseCancellingHeadset: DataTypes.BOOLEAN,
+        noiseCancellingHeadset: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        },
         osProcessor: DataTypes.STRING(60),
         ram: DataTypes.STRING(30),
         internetSpeed: DataTypes.STRING(30),
@@ -72,7 +75,10 @@ module.exports = (sequelize, DataTypes) => {
         // other info
         password: DataTypes.STRING(255),
         rawPassword: DataTypes.STRING(30),
-        isManager: DataTypes.BOOLEAN,
+        isManager: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        },
         isActive: {
             type: DataTypes.BOOLEAN,
             defaultValue: true

@@ -1,9 +1,11 @@
 const AuthenticationController = require('./controllers/AuthenticationController')
 const DashboardController = require('./controllers/DashboardController')
-const ContractorsController = require('./controllers/ContractorsController')
+const ContractorController = require('./controllers/ContractorController')
 const DepartmentController = require('./controllers/DepartmentController')
 const JobTitleController = require('./controllers/JobTitleController')
+const PerkController = require('./controllers/PerkController')
 
+const ContractorControllerPolicy = require('./policies/ContractorControllerPolicy')
 // middleware
 // function logger (req, res, next) {
 //     console.log('Logger', req.headers)
@@ -19,15 +21,19 @@ module.exports = (app) => {
         DashboardController.index)
 
     app.get('/contractors',
-        ContractorsController.index)
+        ContractorController.index)
     app.post('/contractors/store',
-        ContractorsController.store)
+        ContractorControllerPolicy.store,
+        ContractorController.store)
     app.get('/contractors/wsTest',
-        ContractorsController.wsTest)
+        ContractorController.wsTest)
 
     app.get('/departments',
         DepartmentController.index)
 
     app.get('/job-titles',
         JobTitleController.index)
+
+    app.get('/perks',
+        PerkController.index)
 }

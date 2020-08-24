@@ -32,28 +32,20 @@
 </template>
 
 <script>
+import PerkService from '@/services/PerkService'
+
 export default {
     props: {
         saving: false
     },
     data () {
         return {
-            perks: [
-                'OT Pay',
-                'Internet Subsidy',
-                'Birthday Bonus',
-                'Birthday Leave',
-                'Anniversary Bonus',
-                'Pagibig Subsidy',
-                'HMO Emergency',
-                'Performance Incentive',
-                'Referral Bonus'
-            ],
+            perks: [],
             data: {
                 sss: null,
                 pagibig: null,
                 philhealth: null,
-                perks: null
+                perks: []
             }
         }
     },
@@ -65,6 +57,12 @@ export default {
                 }
             }
         }
+    },
+    async created () {
+        const perks = (await PerkService.index()).data
+        perks.map((v) => {
+            this.perks.push({text: v.title, value: v.id})
+        })
     }
 }
 </script>

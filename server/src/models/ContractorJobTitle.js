@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
     const ContractorJobTitle = sequelize.define('contractor_job_titles', {
         id: {
             type: DataTypes.INTEGER,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true
         }
     })
 

@@ -84,9 +84,10 @@ export default {
                 dateStarted: null,
                 dateRegularized: null,
                 departmentId: null,
+                isManager: false,
                 directManagerId: null,
-                jobTitles: null,
-                roles: null
+                jobTitles: [],
+                roles: []
             },
             contactInformation: {
                 viEmail: [null, null, null],
@@ -118,7 +119,7 @@ export default {
                 sss: null,
                 pagibig: null,
                 philhealth: null,
-                perks: null
+                perks: []
             },
         }
     },

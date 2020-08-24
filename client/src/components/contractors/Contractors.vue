@@ -51,7 +51,11 @@ export default {
     methods: {
         async storeContractor (data) {
             this.table.isLoading = true
-            const contractor = await ContractorService.store(data).then(() => this.table.isLoading = false)
+            console.time('store')
+            const contractor = await ContractorService.store(data).then(() => {
+                this.table.isLoading = false
+                console.timeEnd('store')
+            })
         }
     }
     

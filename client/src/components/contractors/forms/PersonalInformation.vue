@@ -56,23 +56,20 @@
         </v-col>
         <v-col cols="12" sm="6" md="3">
             <v-select
-                required
-                label="Marital Status*"
+                label="Marital Status"
                 :items="['Single', 'Married', 'Widowed', 'Divorced']"
                 v-model="data.maritalStatus">
             </v-select>
         </v-col>
         <v-col cols="12" md="6">
             <v-select
-                required
-                label="Educational Attainment*"
+                label="Educational Attainment"
                 :items="['College Graduate', 'Vocational Graduate' ,'College Undergraduate', 'Highschool Graduate', 'Elementary Graduate']"
                 v-model="data.degree">
             </v-select>
         </v-col>
         <v-col cols="12" md="6">
             <v-text-field
-                required
                 persistent-hint
                 label="Degree Program"
                 hint="Start with BS/BA/etc"
