@@ -4,10 +4,16 @@ export default {
     index () {
         return Api().get('contractors')
     },
-    store (data) {
-        return Api().post('contractors/store', data)
+    show (id) {
+        return Api().get(`contractors/${id}`)
     },
-    wsTest () {
-        return Api().get('contractors/wsTest')
+    store (data) {
+        return Api().post('contractors', data)
+    },
+    update (id, data) {
+        return Api().put(`contractors/${id}`, data)
+    },
+    getManagers () {
+        return Api().get('managers')
     }
 }

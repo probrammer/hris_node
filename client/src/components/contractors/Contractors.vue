@@ -2,24 +2,30 @@
     <main-app>
         <slot>
             <v-container fluid>
-                <contractors-table-toolbar
-                    @search="table.search = $event"
-                    @details-selected="table.detailsIndex = $event"
-                    @store-contractor="storeContractor($event)">
-                </contractors-table-toolbar>
-                <v-card>
-                    <v-card-title>
-                        List of Contractors
-                        <!-- <v-chip small dark color="green lighten-1" class="mx-1">{{active}}</v-chip>
-                        <v-chip small dark color="red lighten-1">{{inactive}}</v-chip> -->
-                    </v-card-title>
-                    <contractors-table
-                        :data="table.data"
-                        :search="table.search"
-                        :isLoading="table.isLoading"
-                        :detailsIndex="table.detailsIndex">
-                    </contractors-table>
-                </v-card>
+                <contractors-table
+                    :data="contractors"
+                    @store-contractor="showStoreDialog = true"
+                    @update-contractor="getContractorData($event)">
+                </contractors-table>
+                <store-update-dialog
+                    :departmentOpt="departments"
+                    :jobTitleOpt="jobTitles"
+                    :perkOpt="perks"
+                    :managerOpt="managers"
+                    title="Add Contractor"
+                    :dialog.sync="showStoreDialog"
+                    @save-changes="storeContractor($event)">
+                </store-update-dialog>
+                <store-update-dialog
+                    :departmentOpt="departments"
+                    :jobTitleOpt="jobTitles"
+                    :perkOpt="perks"
+                    :managerOpt="managers"
+                    title="Edit Contractor"
+                    :contractorData="dataToUpdate"
+                    :dialog.sync="showUpdateDialog"
+                    @save-changes="updateContractor($event)">
+                </store-update-dialog>
             </v-container>
         </slot>
     </main-app>
@@ -27,38 +33,73 @@
 
 <script>
 import MainApp from '../layouts/MainApp'
+import StoreUpdateDialog from './dialogs/StoreUpdateDialog'
 import ContractorsTable from './ContractorsTable'
-import ContractorsTableToolbar from './ContractorsTableToolbar'
+
 import ContractorService from '@/services/ContractorService'
+import DepartmentService from '@/services/DepartmentService'
+import JobTitleService from '@/services/JobTitleService'
+import PerkService from '@/services/PerkService'
 
 export default {
     components: {
-        MainApp, ContractorsTable, ContractorsTableToolbar
+        MainApp, StoreUpdateDialog, ContractorsTable
     },
     data () {
         return {
-            table: {
-                data: [],
-                detailsIndex: 0,
-                isLoading: false,
-                search: ''
-            },
+            // dialog
+            departments: [],
+            jobTitles: [],
+            perks: [],
+            managers: [],
+            showUpdateDialog: false,
+            showStoreDialog: false,
+            dataToUpdate: null,
+
+            //table
+            contractors: [],
+        }
+    },
+    methods: {
+        async getContractorData (id) {
+            this.dataToUpdate = (await ContractorService.show(id)).data
+            console.log(this.dataToUpdate)
+            this.showUpdateDialog = !this.showUpdateDialog
+        },
+        async storeContractor (data) {
+            console.log(data)
+            const storedContractor = (await ContractorService.store(data)).data
+            console.log(storedContractor)
+        },
+        async updateContractor (data) {
+            console.log(data)
+            const updatedContractor = (await ContractorService.update(data.id, data)).data
+            console.log(updatedContractor)
         }
     },
     async created () {
-        this.table.data = (await ContractorService.index()).data
-    },
-    methods: {
-        async storeContractor (data) {
-            this.table.isLoading = true
-            console.time('store')
-            const contractor = await ContractorService.store(data).then(() => {
-                this.table.isLoading = false
-                console.timeEnd('store')
-            })
-        }
+        // dialog options
+        let departments = (await DepartmentService.index()).data
+        let jobTitles = (await JobTitleService.index()).data
+        let perks = (await PerkService.index()).data
+        let managers = (await ContractorService.getManagers()).data
+        
+        departments.map((v) => {
+            this.departments.push({text: v.title, value: v.id})
+        })
+        jobTitles.map((v) => {
+            this.jobTitles.push({text: v.title, value: v.id})
+        })
+        perks.map((v) => {
+            this.perks.push({text: v.title, value: v.id})
+        })
+        managers.map((v) => {
+            this.managers.push({text: v.firstName + ' ' + v.lastName, value: v.id})
+        })
+
+        // table data
+        this.contractors = (await ContractorService.index()).data
     }
-    
 }
 </script>
 

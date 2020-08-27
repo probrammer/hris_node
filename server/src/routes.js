@@ -4,16 +4,11 @@ const ContractorController = require('./controllers/ContractorController')
 const DepartmentController = require('./controllers/DepartmentController')
 const JobTitleController = require('./controllers/JobTitleController')
 const PerkController = require('./controllers/PerkController')
+const WorksnapsController = require('./controllers/WorksnapsController')
 
 const ContractorControllerPolicy = require('./policies/ContractorControllerPolicy')
-// middleware
-// function logger (req, res, next) {
-//     console.log('Logger', req.headers)
-//     next()
-// }
 
 module.exports = (app) => {
-    // app.use(logger)
     app.post('/',
         AuthenticationController.login),
 
@@ -22,11 +17,20 @@ module.exports = (app) => {
 
     app.get('/contractors',
         ContractorController.index)
-    app.post('/contractors/store',
+    app.post('/contractors',
         ContractorControllerPolicy.store,
         ContractorController.store)
-    app.get('/contractors/wsTest',
-        ContractorController.wsTest)
+    app.get('/contractors/:id',
+        ContractorController.show),
+    app.put('/contractors/:id',
+        ContractorControllerPolicy.store,
+        ContractorController.update)
+
+    app.get('/api/worksnaps',
+        WorksnapsController.index)    
+
+    app.get('/managers',
+        ContractorController.getManagers)
 
     app.get('/departments',
         DepartmentController.index)

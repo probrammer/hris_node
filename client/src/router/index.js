@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import Dashboard from '@/components/dashboard/Dashboard'
 import Contractors from '@/components/contractors/Contractors'
+import Test from '@/components/worksnaps/Test'
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ export default new Router({
       path: '/contractors',
       name: 'contractors',
       component: Contractors
+    },
+    {
+      path: '/api/worksnaps',
+      name: 'worksnaps',
+      component: Test
     }
   ]
 })

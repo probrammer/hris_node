@@ -4,6 +4,9 @@ module.exports = {
     async index (req, res) {
         try {
             const perks = await Perk.findAll({
+                attributes: [
+                    'id', 'title'
+                ],
                 order: [
                     ['title', 'ASC']
                 ]
